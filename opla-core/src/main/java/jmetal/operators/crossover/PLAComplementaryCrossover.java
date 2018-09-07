@@ -14,6 +14,10 @@ import jmetal.util.RandomGenerator;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * @author Willian, Thiago, Diego, Mamoru
+ * Proposta de operador de cruzamento baseado no Simple complementary Crossover
+ */
 public class PLAComplementaryCrossover extends Crossover {
 
     private static List VALID_TYPES = Arrays.asList(ArchitectureSolutionType.class);
@@ -42,10 +46,15 @@ public class PLAComplementaryCrossover extends Crossover {
         return offspring;
     }
 
-    public static void main(String[] args) {
-        System.out.println();
-    }
-
+    /**
+     *
+     * @param crossoverProbability Probabilidade do Crossover
+     * @param father Pai
+     * @param mother Mãe
+     * @return Solução
+     * @throws JMException JMETAL Exception
+     * @throws ClassNotFoundException Classe não encontrada
+     */
     private Solution doCrossver(Double crossoverProbability, Solution father, Solution mother) throws JMException, ClassNotFoundException {
         int n = father.numberOfObjectives();
         Solution offspring = new Solution();
@@ -66,6 +75,12 @@ public class PLAComplementaryCrossover extends Crossover {
         return offspring;
     }
 
+    /**
+     * Altera solução utilizada no método doCrossver
+     * @param father Pai
+     * @param mother Mãe
+     * @param offspring Solução descendente
+     */
     private void applyComplementaryCrossover(Solution father, Solution mother, Solution offspring) {
         Architecture[] fatherDecisionVariables = (Architecture[]) father.getDecisionVariables();
         List<Architecture> fatherElements = Arrays.asList(fatherDecisionVariables);
@@ -76,27 +91,39 @@ public class PLAComplementaryCrossover extends Crossover {
         int cp = PseudoRandom.randInt(0, fatherElements.size() - 1);
 
         List<Class> diffClasses = new ArrayList<>();
-        fatherElements.forEach(f -> diffClasses.addAll(f.getAllClasses()));
+        for (Architecture fatherElement : fatherElements) {
+            diffClasses.addAll(fatherElement.getAllClasses());
+        }
 
         List<Interface> diffInterfaces = new ArrayList<>();
-        fatherElements.forEach(f -> diffInterfaces.addAll(f.getAllInterfaces()));
+        for (Architecture f : fatherElements) {
+            diffInterfaces.addAll(f.getAllInterfaces());
+        }
 
         List<Architecture> architectures = fatherElements.subList(0, cp);
         offspring.setDecisionVariables((Variable[]) architectures.toArray());
 
-        motherElements = motherElements.stream()
-                .filter(me -> !((Architecture) offspring.getDecisionVariables()[0])
-                        .getAllClasses().contains(me)).collect(Collectors.toList());
+        List<Architecture> list = new ArrayList<>();
+        for (Architecture me : motherElements) {
+            if (!((Architecture) offspring.getDecisionVariables()[0])
+                    .getAllClasses().contains(me)) {
+                list.add(me);
+            }
+        }
+        motherElements = list;
 
 
-        diffClasses.forEach(cl -> {
-            ((Architecture) offspring.getDecisionVariables()[0]).addExternalClass(cl);
-        });
+        for (Class diffClass : diffClasses) {
+            ((Architecture) offspring.getDecisionVariables()[0]).addExternalClass(diffClass);
+        }
 
 
-        motherElements.forEach(cl -> cl.getAllClasses()
-                .forEach(cla -> ((Architecture) offspring
-                        .getDecisionVariables()[0]).addExternalClass(cla)));
+        for (Architecture cl : motherElements) {
+            for (Class cla : cl.getAllClasses()) {
+                ((Architecture) offspring
+                        .getDecisionVariables()[0]).addExternalClass(cla);
+            }
+        }
     }
 
 
