@@ -17,6 +17,7 @@ import jmetal.experiments.FeatureMutationOperators;
 import jmetal.experiments.NSGAIIConfig;
 import jmetal.experiments.NSGAII_OPLA_FeatMutInitializer;
 import jmetal.experiments.OPLAConfigs;
+import jmetal.operators.crossover.CrossoverOperations;
 import logs.log_log.Logger;
 
 /**

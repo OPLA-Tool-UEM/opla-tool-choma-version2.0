@@ -101,6 +101,7 @@ public class main extends javax.swing.JFrame {
 		disableFieldsOnStart();
 		checkAllMutationOperatorsByDefault();
 		hidePanelMutationOperatorsByDefault();
+		hidePanelCrossoverOperatorsByDefault();
 		hidePanelCrossoverProbabilityByDefault();
 		hidePanelMutationProbabilityByDefault();
 		hidePanelSolutionsByDefault();
@@ -171,7 +172,7 @@ public class main extends javax.swing.JFrame {
 			MutationOperatorsSelected.getSelectedMutationOperators()
 					.remove(FeatureMutationOperators.DESIGN_PATTERNS.getOperatorName());
 
-			panelPatternScope.setVisible(false);	
+			panelPatternScope.setVisible(false);
 		}
 	}
 
@@ -262,7 +263,7 @@ public class main extends javax.swing.JFrame {
 			System.exit(1);
 		}
 	}
-	
+
 	private void executeBestof2() {
 		try {
 			Bestof2 bestof2 = new Bestof2();
@@ -277,14 +278,14 @@ public class main extends javax.swing.JFrame {
 			System.exit(1);
 		}
 	}
-	
+
 	private void executeBestof12() {
 		try {
 			Bestof12 bestof12 = new Bestof12();
 			bestof12.execute(comboAlgorithms, checkMutation, fieldMutationProb, fieldArchitectureInput, fieldNumberOfRuns,
 					fieldPopulationSize, fieldMaxEvaluations, checkCrossover, fieldCrossoverProbability,
 					executionDescription.getText());
-			
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -294,14 +295,14 @@ public class main extends javax.swing.JFrame {
 			System.exit(1);
 		}
 	}
-	
+
 	private void executeNoChoice() {
 		try {
 			NoChoice noChoice = new NoChoice();
 			noChoice.execute(comboAlgorithms, checkMutation, fieldMutationProb, fieldArchitectureInput, fieldNumberOfRuns,
 					fieldPopulationSize, fieldMaxEvaluations, checkCrossover, fieldCrossoverProbability,
 					executionDescription.getText());
-			
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -311,14 +312,14 @@ public class main extends javax.swing.JFrame {
 			System.exit(1);
 		}
 	}
-	
+
 	private void executeUntilBest() {
 		try {
 			UntilBest untilBest = new UntilBest();
 			untilBest.execute(comboAlgorithms, checkMutation, fieldMutationProb, fieldArchitectureInput, fieldNumberOfRuns,
 					fieldPopulationSize, fieldMaxEvaluations, checkCrossover, fieldCrossoverProbability,
 					executionDescription.getText());
-			
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -422,13 +423,15 @@ public class main extends javax.swing.JFrame {
 		checkElegance = new javax.swing.JCheckBox();
 		checkPLAExt = new javax.swing.JCheckBox();
 		checkFeatureDriven = new javax.swing.JCheckBox();
+		checkComplementaryCrossover = new javax.swing.JCheckBox();
+		checkFeatureDrivenCrossver = new javax.swing.JCheckBox();
 		checkAclass = new javax.swing.JCheckBox();
 		checkAcomp = new javax.swing.JCheckBox();
 		checkTam = new javax.swing.JCheckBox();
 		checkCoe = new javax.swing.JCheckBox();
 		checkDc = new javax.swing.JCheckBox();
 		checkEc = new javax.swing.JCheckBox();
-		
+
 		checkWocsClass = new javax.swing.JCheckBox(); //addYni
         checkWocsInterface = new javax.swing.JCheckBox();//addYni
         checkCbcs = new javax.swing.JCheckBox();//addYni
@@ -436,8 +439,9 @@ public class main extends javax.swing.JFrame {
         checkSsc = new javax.swing.JCheckBox();//addYni
         checkAv = new javax.swing.JCheckBox();//addYni
         checkLCC = new javax.swing.JCheckBox();
-		
+
 		panelOperatorsMutation = new javax.swing.JPanel();
+		panelOperatorsCrossover = new javax.swing.JPanel();
 		checkFeatureMutation = new javax.swing.JCheckBox();
 		checkMoveMethod = new javax.swing.JCheckBox();
 		checkMoveOperation = new javax.swing.JCheckBox();
@@ -506,7 +510,7 @@ public class main extends javax.swing.JFrame {
 
 		jLabel12 = new javax.swing.JLabel();
 		progressBar = new javax.swing.JProgressBar();
-		
+
 		btnSearchPath = new javax.swing.JButton();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -970,9 +974,9 @@ public class main extends javax.swing.JFrame {
 
 		panelMetrics.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Objective Functions", 0, 0,
 				new java.awt.Font("Verdana", 1, 14), java.awt.Color.magenta)); // NOI18N
-		
-		
-		
+
+
+
 
 		checkConventional.setText("Conventional");
 		checkConventional.addActionListener(new java.awt.event.ActionListener() {
@@ -999,6 +1003,22 @@ public class main extends javax.swing.JFrame {
 		checkFeatureDriven.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				checkFeatureDrivenActionPerformed(evt);
+			}
+		});
+
+		checkFeatureDrivenCrossver.setText("Feature Driven");
+		checkFeatureDrivenCrossver.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				//				TODO WILLIAN
+//				checkFeatureDrivenCrossverActionPerformed(evt);
+			}
+		});
+
+		checkComplementaryCrossover.setText("Complementary");
+		checkComplementaryCrossover.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+//				TODO WILLIAN
+//				checkComplementaryCrossoverActionPerformed(evt);
 			}
 		});
 
@@ -1043,43 +1063,43 @@ public class main extends javax.swing.JFrame {
 				checkEcActionPerformed(evt);
 			}
 		});
-		
-		
+
+
 		checkWocsClass.setText("WOCS Class"); //addYni
         checkWocsClass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	checkWocsClassActionPerformed(evt);
             }
         });
-        
+
         checkWocsInterface.setText("WOCS Interface"); //addYni
         checkWocsInterface.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkWocsInterfaceActionPerformed(evt);
             }
         });
-        
+
         checkCbcs.setText("CBCS"); //addYni
         checkCbcs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkCbcsActionPerformed(evt);
             }
         });
-        
+
         checkSvc.setText("SVC"); //addYni
         checkSvc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkSvcActionPerformed(evt);
             }
         });
-        
+
         checkSsc.setText("SSC"); //addYni
         checkSsc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkSscActionPerformed(evt);
             }
         });
-        
+
         checkAv.setText("AV"); //addYni
         checkAv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1087,13 +1107,13 @@ public class main extends javax.swing.JFrame {
             }
         });
 
-        checkLCC.setText("Feature-based Cohesion"); 
+        checkLCC.setText("Feature-based Cohesion");
         checkLCC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkLCCActionPerformed(evt);
             }
         });
-        
+
 		javax.swing.GroupLayout panelMetricsLayout = new javax.swing.GroupLayout(panelMetrics);
 		panelMetrics.setLayout(panelMetricsLayout);
 		panelMetricsLayout
@@ -1115,7 +1135,7 @@ public class main extends javax.swing.JFrame {
 												.addComponent(checkSsc)//addYni
 												.addComponent(checkLCC)
 											)
-									
+
 									.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 									.addGroup(panelMetricsLayout
 											.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1146,34 +1166,34 @@ public class main extends javax.swing.JFrame {
 														.createParallelGroup(GroupLayout.Alignment.BASELINE)
 														.addComponent(checkAcomp)
 														.addComponent(checkEc)
-														
-														
+
+
 														)
 												.addGroup(panelMetricsLayout
 														.createParallelGroup(GroupLayout.Alignment.BASELINE)
 														.addComponent(checkAclass)
 														.addComponent(checkDc)
-														
-														
-														
+
+
+
 														)
 												.addGroup(panelMetricsLayout
 														.createParallelGroup(GroupLayout.Alignment.BASELINE)
 														.addComponent(checkTam)
 														.addComponent(checkCoe)
-														
+
 														)
 												.addGroup(panelMetricsLayout
 														.createParallelGroup(GroupLayout.Alignment.BASELINE)
 														.addComponent(checkPLAExt)
 														.addComponent(checkElegance))
-												
+
 												.addGroup(panelMetricsLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)//addYni
 														.addComponent(checkWocsClass)
 					              	            		.addComponent(checkWocsInterface))
 					               	           .addGroup(panelMetricsLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)//addYni
 					               	        		.addComponent(checkCbcs)
-			                 	            		.addComponent(checkSvc))	
+			                 	            		.addComponent(checkSvc))
 					               	           .addGroup(panelMetricsLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)//addYni
 					               	        		.addComponent(checkSsc)
 			                 	            		.addComponent(checkAv))
@@ -1186,6 +1206,10 @@ public class main extends javax.swing.JFrame {
 
 		panelOperatorsMutation.setBorder(
 				javax.swing.BorderFactory.createTitledBorder(null, "Select Mutation Operators wich want to use", 0, 0,
+						new java.awt.Font("Verdana", 1, 5), java.awt.Color.magenta)); // NOI18N
+
+		panelOperatorsCrossover.setBorder(
+				javax.swing.BorderFactory.createTitledBorder(null, "Select Crossover Operators wich want to use", 0, 0,
 						new java.awt.Font("Verdana", 1, 5), java.awt.Color.magenta)); // NOI18N
 
 		checkFeatureMutation.setText("Feature-driven Mutation");
@@ -1264,8 +1288,9 @@ public class main extends javax.swing.JFrame {
 										.addComponent(checkAddClass).addComponent(checkMoveAttribute))
 								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 */
-		jLabel5.setText("Population Size:");
 
+
+		jLabel5.setText("Population Size:");
 		fieldPopulationSize.addFocusListener(new java.awt.event.FocusAdapter() {
 			public void focusLost(java.awt.event.FocusEvent evt) {
 				fieldPopulationSizeFocusLost(evt);
@@ -1373,6 +1398,9 @@ public class main extends javax.swing.JFrame {
 																javax.swing.GroupLayout.PREFERRED_SIZE,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
 																javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(panelOperatorsCrossover,
+                                                                GroupLayout.PREFERRED_SIZE, 399,
+                                                                GroupLayout.PREFERRED_SIZE)
 														.addComponent(panelOperatorsMutation,
 																javax.swing.GroupLayout.PREFERRED_SIZE, 399,
 																javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -1432,6 +1460,8 @@ public class main extends javax.swing.JFrame {
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(panelOperatorsMutation, javax.swing.GroupLayout.PREFERRED_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(panelOperatorsCrossover, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 								.addGap(18, 18, 18))
 							)
 						.addGroup(panelExperimentSettingsLayout
@@ -1439,7 +1469,7 @@ public class main extends javax.swing.JFrame {
 								.addComponent(panelCrossProb, javax.swing.GroupLayout.PREFERRED_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 								.addComponent(panelMutationProb, javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))	
+										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 						.addGap(113, 113, 113)));
 
 		jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Input Architecture", 0, 0,
@@ -1464,7 +1494,7 @@ public class main extends javax.swing.JFrame {
 				btnInput1ActionPerformed(evt);
 			}
 		});
-		
+
 		//jcn
 		btnSearchPath.setText("Search a Path");
 		btnSearchPath.addActionListener(new java.awt.event.ActionListener() {
@@ -1486,7 +1516,7 @@ public class main extends javax.swing.JFrame {
 												javax.swing.GroupLayout.PREFERRED_SIZE, 397,
 												javax.swing.GroupLayout.PREFERRED_SIZE)))
 						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
-		
+
 		jPanel7Layout.setVerticalGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(jPanel7Layout.createSequentialGroup().addContainerGap().addComponent(jLabel11)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2308,7 +2338,8 @@ public class main extends javax.swing.JFrame {
 			}
 			panelMutationProb.setVisible(true);
 		}
-	}// GEN-LAST:event_checkMutationActionPerformed
+	}
+
 
 	private void checkAddClassActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_checkAddClassActionPerformed
 		addOrRemoveOperatorMutation(FeatureMutationOperators.ADD_CLASS_MUTATION.getOperatorName(), checkAddClass);
@@ -2338,12 +2369,15 @@ public class main extends javax.swing.JFrame {
 	}// GEN-LAST:event_crossProbSliderMouseDragged
 
 	private void checkCrossoverActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_checkCrossoverActionPerformed
+		System.out.println("clicou");
 		if (checkCrossover.isSelected()) {
+		    panelOperatorsCrossover.setVisible(true);
 			if (crossoverProbabilityBck != null) {
 				fieldCrossoverProbability.setText(crossoverProbabilityBck);
 			}
 			panelCrossProb.setVisible(true);
 		} else {
+            panelOperatorsCrossover.setVisible(false);
 			crossoverProbabilityBck = fieldCrossoverProbability.getText();
 			fieldCrossoverProbability.setText("0");
 			panelCrossProb.setVisible(false);
@@ -2376,16 +2410,16 @@ public class main extends javax.swing.JFrame {
 			this.config.updatePathToExportModels(path + UserHome.getFileSeparator());
 		}
 	}// GEN-LAST:event_btnOutputActionPerformed
-	
+
 	//jcn
 	private void btnSearchPathActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnOutputActionPerformed
-		fileChooserAlter(fieldArchitectureInput,"uml"); 
+		fileChooserAlter(fieldArchitectureInput,"uml");
 	}// GEN-LAST:event_btnOutputActionPerformed
 
 	private void comboAlgorithmsItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_comboAlgorithmsItemStateChanged
 	}// GEN-LAST:event_comboAlgorithmsItemStateChanged
 
-	
+
 	private void checkEleganceActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_checkEleganceActionPerformed
 		//jcn
 		//final String metric = Metrics.ELEGANCE.getName();
@@ -2408,6 +2442,12 @@ public class main extends javax.swing.JFrame {
 
 	private void checkFeatureDrivenActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_checkFeatureDrivenActionPerformed
 		System.out.println("FM");
+		String metric = Metrics.FEATURE_DRIVEN.getName();
+		addToMetrics(checkFeatureDriven, metric);
+	}// GEN-LAST:event_checkFeatureDrivenActionPerformed
+
+	private void checkFeatureDrivenCrossoverActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_checkFeatureDrivenActionPerformed
+		System.out.println("FMC");
 		String metric = Metrics.FEATURE_DRIVEN.getName();
 		addToMetrics(checkFeatureDriven, metric);
 	}// GEN-LAST:event_checkFeatureDrivenActionPerformed
@@ -2453,47 +2493,47 @@ public class main extends javax.swing.JFrame {
     	final String metric = Metrics.LCC.getName();
         addToMetrics(checkLCC, metric);
     }//GEN-LAST:event_checkEleganceActionPerformed
-	
+
 //addYni----------------------------------------
-    
+
     private void checkWocsClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkEleganceActionPerformed
     	System.out.println("WOCSCLASS");
     	final String metric = Metrics.WOCSCLASS.getName();
         addToMetrics(checkWocsClass, metric);
     }//GEN-LAST:event_checkEleganceActionPerformed
-    
+
     private void checkWocsInterfaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkEleganceActionPerformed
     	System.out.println("WOCSINTER");
     	final String metric = Metrics.WOCSINTER.getName();
         addToMetrics(checkWocsInterface, metric);
     }//GEN-LAST:event_checkEleganceActionPerformed
-    
+
     private void checkCbcsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkEleganceActionPerformed
     	System.out.println("CBCS");
     	final String metric = Metrics.CBCS.getName();
         addToMetrics(checkCbcs, metric);
     }//GEN-LAST:event_checkEleganceActionPerformed
-    
+
     private void checkSvcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkEleganceActionPerformed
     	System.out.println("SVC");
     	final String metric = Metrics.SVC.getName();
         addToMetrics(checkSvc, metric);
     }//GEN-LAST:event_checkEleganceActionPerformed
-    
+
     private void checkSscActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkEleganceActionPerformed
     	System.out.println("SSC");
     	final String metric = Metrics.SSC.getName();
         addToMetrics(checkSsc, metric);
     }//GEN-LAST:event_checkEleganceActionPerformed
-    
+
     private void checkAvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkEleganceActionPerformed
     	System.out.println("AV");
     	final String metric = Metrics.AV.getName();
         addToMetrics(checkAv, metric);
     }//GEN-LAST:event_checkEleganceActionPerformed
-    
 
-    
+
+
     //----------------------------addYni-----------------------------------------
 
 	private void numberOfRunsFocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_numberOfRunsFocusLost
@@ -2630,7 +2670,7 @@ public class main extends javax.swing.JFrame {
 					progressBar.setIndeterminate(true);
 
 				}
-				
+
 				if ("Bestof12".equalsIgnoreCase(algoritmToRun)) {
 					SwingWorker sw = new SwingWorker() {
 
@@ -2659,7 +2699,7 @@ public class main extends javax.swing.JFrame {
 					progressBar.setIndeterminate(true);
 
 				}
-				
+
 				if ("NoChoice".equalsIgnoreCase(algoritmToRun)) {
 					SwingWorker sw = new SwingWorker() {
 
@@ -2688,7 +2728,7 @@ public class main extends javax.swing.JFrame {
 					progressBar.setIndeterminate(true);
 
 				}
-				
+
 				if ("UntilBest".equalsIgnoreCase(algoritmToRun)) {
 					SwingWorker sw = new SwingWorker() {
 
@@ -2717,7 +2757,7 @@ public class main extends javax.swing.JFrame {
 					progressBar.setIndeterminate(true);
 
 				}
-				
+
 				if ("PAES".equalsIgnoreCase(algoritmToRun)) {
 					SwingWorker sw2 = new SwingWorker() {
 
@@ -2744,7 +2784,7 @@ public class main extends javax.swing.JFrame {
 
 					sw2.execute();
 					progressBar.setIndeterminate(true);
-				}			
+				}
 			}
 		}
 	}// GEN-LAST:event_btnRunActionPerformed
@@ -2843,7 +2883,7 @@ public class main extends javax.swing.JFrame {
 				"sumClassesDepOut", "sumDepIn", "sumDepOut" };
 		String[] featureColumns = { "msiAggregation", "cdac ", "cdai", "cdao", "cibc", "iibc", "oobc", "lcc",
 				"lccClass", "cdaClass", "cibClass" };
-		
+
 	    String[] wocsclassColumns = {"WOCS Class"};//addYni
 	    String[] wocsinterfaceColumns = {"WOCS Interface"};//addYni
 	    String[] cbcsColumns = {"CBCS"};//addYni
@@ -2856,7 +2896,7 @@ public class main extends javax.swing.JFrame {
 		mapColumns.put("elegance", eleganceColumns);
 		mapColumns.put("conventional", conventionalsColumns);
 		mapColumns.put("feature", featureColumns);
-		
+
 		mapColumns.put("wocsclass", wocsclassColumns);//addYni
 		mapColumns.put("wocsinterface", wocsinterfaceColumns);//addYni
 		mapColumns.put("cbcs", cbcsColumns);//addYni
@@ -2864,7 +2904,7 @@ public class main extends javax.swing.JFrame {
 		mapColumns.put("ssc", sscColumns);//addYni
 		mapColumns.put("av", avColumns);//addYni
 		mapColumns.put("lcc", lccColumns);
-		
+
 
 		DefaultTableModel model = new DefaultTableModel();
 		tableMetrics.setModel(model);
@@ -2942,7 +2982,7 @@ public class main extends javax.swing.JFrame {
 				model.addRow(row);
 
 			}
-			
+
 			//---addYni---
 			else if (selectedMetric.equalsIgnoreCase("wocsclass")) {
 		    	  Wocsclass wocsc = db.Database.getWocsclassMetricsForSolution(idSolution, this.selectedExperiment);
@@ -2957,8 +2997,8 @@ public class main extends javax.swing.JFrame {
 		          row[1] = this.selectedExperiment;
 		          row[2] = this.selectedExecution;
 		          model.addRow(row);
-		        } 
-			
+		        }
+
 			else if (selectedMetric.equalsIgnoreCase("wocsinterface")) {
 		    	  Wocsinterface wocsI = db.Database.getWocsinterfaceMetricsForSolution(idSolution, this.selectedExperiment);
 
@@ -2972,8 +3012,8 @@ public class main extends javax.swing.JFrame {
 		          row[1] = this.selectedExperiment;
 		          row[2] = this.selectedExecution;
 		          model.addRow(row);
-		        } 
-		      
+		        }
+
 		      else if (selectedMetric.equalsIgnoreCase("cbcs")) {
 		    	  Cbcs cbcs = db.Database.getCbcsMetricsForSolution(idSolution, this.selectedExperiment);
 
@@ -2987,8 +3027,8 @@ public class main extends javax.swing.JFrame {
 		          row[1] = this.selectedExperiment;
 		          row[2] = this.selectedExecution;
 		          model.addRow(row);
-		        } 
-		      
+		        }
+
 		      else if (selectedMetric.equalsIgnoreCase("svc")) {
 		    	  Svc svc = db.Database.getSvcMetricsForSolution(idSolution, this.selectedExperiment);
 
@@ -3002,8 +3042,8 @@ public class main extends javax.swing.JFrame {
 		          row[1] = this.selectedExperiment;
 		          row[2] = this.selectedExecution;
 		          model.addRow(row);
-		        } 
-		      
+		        }
+
 		      else if (selectedMetric.equalsIgnoreCase("ssc")) {
 		    	  Ssc ssc = db.Database.getSscMetricsForSolution(idSolution, this.selectedExperiment);
 
@@ -3013,18 +3053,18 @@ public class main extends javax.swing.JFrame {
 		          }
 
 		          Object[] row = new Object[numberOfColumns + 2];
-		          
-		          //addYni 
+
+		          //addYni
 		          System.out.println(ssc.getSsc());
 		          System.out.println(this.selectedExperiment);
 		          System.out.println(this.selectedExecution);
-		          
+
 		          row[0] = ssc.getSsc();
 		          row[1] = this.selectedExperiment;
 		          row[2] = this.selectedExecution;
 		          model.addRow(row);
-		        } 
-		      
+		        }
+
 		      else if (selectedMetric.equalsIgnoreCase("av")) {
 		    	  Av av = db.Database.getAvMetricsForSolution(idSolution, this.selectedExperiment);
 
@@ -3038,10 +3078,10 @@ public class main extends javax.swing.JFrame {
 		          row[1] = this.selectedExperiment;
 		          row[2] = this.selectedExecution;
 		          model.addRow(row);
-		        } 
-			
+		        }
+
 			//---addYni---
-			
+
 			panelShowMetrics.setVisible(true);
 		}
 	}// GEN-LAST:event_comboMetricsItemStateChanged
@@ -3416,7 +3456,7 @@ public class main extends javax.swing.JFrame {
 
 		return "";
 	}
-	
+
 	/**
 	 * @param args
 	 *            the command line arguments
@@ -3448,7 +3488,7 @@ public class main extends javax.swing.JFrame {
 	private javax.swing.JCheckBox checkConventional;
 	private javax.swing.JCheckBox checkCrossover;
 	private javax.swing.JCheckBox checkElegance;
-	
+
     private javax.swing.JCheckBox checkWocsClass;//addYni
     private javax.swing.JCheckBox checkWocsInterface;//addYni
     private javax.swing.JCheckBox checkCbcs;//addYni
@@ -3466,7 +3506,10 @@ public class main extends javax.swing.JFrame {
 
 	private javax.swing.JCheckBox checkFeatureDriven;
 	private javax.swing.JCheckBox checkFeatureMutation;
-	
+
+	private javax.swing.JCheckBox checkComplementaryCrossover;
+	private javax.swing.JCheckBox checkFeatureDrivenCrossver;
+
 	private javax.swing.JCheckBox checkManagerClass;
 	private javax.swing.JCheckBox checkMediator;
 	private javax.swing.JCheckBox checkMoveAttribute;
@@ -3551,6 +3594,7 @@ public class main extends javax.swing.JFrame {
 	private javax.swing.JPanel panelMutationProb;
 	private javax.swing.JPanel panelObjectives;
 	private javax.swing.JPanel panelOperatorsMutation;
+	private javax.swing.JPanel panelOperatorsCrossover;
 	private javax.swing.JPanel panelPatternScope;
 	private javax.swing.JPanel panelShowMetrics;
 	private javax.swing.JPanel panelSolutions;
@@ -3562,12 +3606,16 @@ public class main extends javax.swing.JFrame {
 	private javax.swing.JTable tableExp2;
 	private javax.swing.JTable tableMetrics;
 	private javax.swing.JTable tableObjectives;
-	
+
 
 	// End of variables declaration//GEN-END:variables
 
 	private void hidePanelMutationOperatorsByDefault() {
 		panelOperatorsMutation.setVisible(false);
+	}
+
+	private void hidePanelCrossoverOperatorsByDefault() {
+		panelOperatorsCrossover.setVisible(false);
 	}
 
 	private void checkAllMutationOperatorsByDefault() {
@@ -3600,18 +3648,20 @@ public class main extends javax.swing.JFrame {
 //		}
 
 		VolatileConfs.getObjectiveFunctionSelected().clear();
-		
+
 		checkElegance.setSelected(false);
 		checkPLAExt.setSelected(false);
 		checkConventional.setSelected(false);
 		checkFeatureDriven.setSelected(false);
+		checkComplementaryCrossover.setSelected(false);
+		checkFeatureDrivenCrossver.setSelected(false);
 		checkAcomp.setSelected(false);
 		checkAclass.setSelected(false);
 		checkTam.setSelected(false);
 		checkCoe.setSelected(false);
 		checkDc.setSelected(false);
 		checkEc.setSelected(false);
-		
+
 		checkWocsClass.setSelected(false);//addYni
 		checkWocsInterface.setSelected(false);//addYni
 		checkCbcs.setSelected(false);//addYni
