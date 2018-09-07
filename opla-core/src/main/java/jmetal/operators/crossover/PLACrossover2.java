@@ -95,7 +95,7 @@ public class PLACrossover2 extends Crossover {
                     // STEP 1: Get feature to crossover
                     List<Concern> concernsArchitecture = new ArrayList<Concern> (((Architecture) offspring[0].getDecisionVariables()[0]).getAllConcerns());
                     Concern feature = randomObject(concernsArchitecture);
-                   
+
                     obtainChild(feature, (Architecture) parent2.getDecisionVariables()[0], (Architecture) offspring[0].getDecisionVariables()[0], scope);
                     //Thelma - Dez2013 adicionado para descartar as solucoes com interfaces desconectadas de componentes na PLA e com variabilidades cujos pontos de variacao n��o fazem parte da solucao
         	        if (!(isValidSolution((Architecture) offspring[0].getDecisionVariables()[0]))){
