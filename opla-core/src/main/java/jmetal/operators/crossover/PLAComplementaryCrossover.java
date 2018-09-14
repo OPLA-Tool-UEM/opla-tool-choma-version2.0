@@ -77,7 +77,10 @@ public class PLAComplementaryCrossover extends Crossover {
     }
 
     /**
-     * Altera solução utilizada no método doCrossver, 2 4 3
+     * Altera solução utilizada no método doCrossver
+     * Para testar crossover deve-se configurar os seguintes valores na ferramenta
+     * Number of Runs: 2 Max Evaluations: 4 Population Size: 3
+     * Devido ao fato de que na etapa de aplicação do operador, é verificado se populationSize < maxEvaluations
      * @param father Pai
      * @param mother Mãe
      * @param offspring Solução descendente
@@ -90,27 +93,26 @@ public class PLAComplementaryCrossover extends Crossover {
         Variable[] motherDecisionVariables = (Variable[]) mother.getDecisionVariables();
         List<Variable> motherElements = Arrays.asList(motherDecisionVariables);
 
-        System.out.println(fatherElements.size());
-
+        // Lista de classes presente somente no pai
         List<Class> diffClasses = new ArrayList<>();
         for (Variable fatherElement : fatherElements) {
             diffClasses.addAll(((Architecture) fatherElement).getAllClasses());
         }
 
+        // Lista de interfaces presentes somento no pai
         List<Interface> diffInterfaces = new ArrayList<>();
         for (Variable f : fatherElements) {
             diffInterfaces.addAll(((Architecture) f).getAllInterfaces());
         }
 
-        System.out.println(fatherElements);
-        System.out.println(fatherElements.size());
-
+        // Elementos presentes no pai
         Variable[] vs = new Variable[fatherElements.size()];
         for (int i = 0; i < fatherElements.size(); i++) {
             vs[i] = fatherElements.get(i);
         }
         offspring.setDecisionVariables(vs);
 
+        // remove os elementos da mão que são iguais ao do filho
         List<Variable> list = new ArrayList<>();
         for (Variable me : motherElements) {
             if (!((Architecture) offspring.getDecisionVariables()[0])
@@ -120,12 +122,12 @@ public class PLAComplementaryCrossover extends Crossover {
         }
         motherElements = list;
 
-
+        // Adiciona todos elementos das diferentes listas
         for (Class diffClass : diffClasses) {
             ((Architecture) offspring.getDecisionVariables()[0]).addExternalClass(diffClass);
         }
 
-
+        // Adiciona todos elementos remanescentes da mãe
         for (Variable cl : motherElements) {
             for (Class cla : ((Architecture) cl).getAllClasses()) {
                 ((Architecture) offspring
