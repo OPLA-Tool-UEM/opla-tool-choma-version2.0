@@ -1,0 +1,7 @@
+
+ tempo-origin: 51
+ tempo-origin: 38
+ tempo-origin: 72
+ tempo-origin: 47
+ tempo-origin: 26
+ tempo-origin: 21

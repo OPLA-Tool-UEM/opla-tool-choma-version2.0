@@ -21,19 +21,16 @@
 
 package jmetal.metaheuristics.nsgaII;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import jmetal.core.Algorithm;
-import jmetal.core.Operator;
-import jmetal.core.Problem;
-import jmetal.core.Solution;
-import jmetal.core.SolutionSet;
+import jmetal.core.*;
 import jmetal.qualityIndicator.QualityIndicator;
 import jmetal.util.Distance;
 import jmetal.util.JMException;
 import jmetal.util.Ranking;
 import jmetal.util.comparators.CrowdingComparator;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * This class implements the NSGA-II algorithm.
@@ -120,7 +117,7 @@ public class NSGAII extends Algorithm {
 		mutationOperator = operators_.get("mutation");
 		crossoverOperator = operators_.get("crossover");
 		selectionOperator = operators_.get("selection");
-		
+
 
 		// POPULACAO INICIAL
 		try {
@@ -152,7 +149,7 @@ public class NSGAII extends Algorithm {
 				// crossover
 				for (int i = 0; i < (populationSize / 2); i++) {
 					if (evaluations < maxEvaluations) {
-						
+
 						System.out.println("\n --- \n");
 						System.out.println("Origin INDIVIDUO: " + i + " evolucao: " + evaluations + " \n");
 						System.out.println("\n ---\n ");
@@ -162,20 +159,32 @@ public class NSGAII extends Algorithm {
 						parents[0] = (Solution) selectionOperator.execute(population);
 						parents[1] = (Solution) selectionOperator.execute(population);
 
-						Solution[] offSpring = (Solution[]) crossoverOperator.execute(parents);
-						problem_.evaluateConstraints(offSpring[0]);
-						problem_.evaluateConstraints(offSpring[1]);
+						Object execute = crossoverOperator.execute(parents);
+						if (execute instanceof Solution) {
+							Solution offSpring = (Solution) crossoverOperator.execute(parents);
+							problem_.evaluateConstraints(offSpring);
+							mutationOperator.execute(offSpring);
+							problem_.evaluateConstraints(offSpring);
+							problem_.evaluate(offSpring);
+							offspringPopulation.add(offSpring);
+						} else {
+							Solution[] offSpring = (Solution[]) crossoverOperator.execute(parents);
+							problem_.evaluateConstraints(offSpring[0]);
+							problem_.evaluateConstraints(offSpring[1]);
 
-						mutationOperator.execute(offSpring[0]);
-						mutationOperator.execute(offSpring[1]);
-						problem_.evaluateConstraints(offSpring[0]);
-						problem_.evaluateConstraints(offSpring[1]);
+							mutationOperator.execute(offSpring[0]);
+							mutationOperator.execute(offSpring[1]);
+							problem_.evaluateConstraints(offSpring[0]);
+							problem_.evaluateConstraints(offSpring[1]);
 
-						problem_.evaluate(offSpring[0]);
-						problem_.evaluate(offSpring[1]);
+							problem_.evaluate(offSpring[0]);
+							problem_.evaluate(offSpring[1]);
 
-						offspringPopulation.add(offSpring[0]);
-						offspringPopulation.add(offSpring[1]);
+							offspringPopulation.add(offSpring[0]);
+							offspringPopulation.add(offSpring[1]);
+						}
+
+
 						evaluations += 2;
 
 						this.gravarTempo(System.currentTimeMillis() - timeBegin);

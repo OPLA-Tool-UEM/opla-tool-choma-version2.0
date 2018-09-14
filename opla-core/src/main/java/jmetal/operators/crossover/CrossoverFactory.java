@@ -42,11 +42,14 @@ public class CrossoverFactory {
 
 
     public static Crossover getCrossoverOperator(String name, HashMap parameters) throws JMException {
-        if (name.equalsIgnoreCase("PLACrossover"))
-            return new PLACrossover2(parameters);
-        else if (name.equalsIgnoreCase("PLAComplementaryCrossover"))
+//        System.out.println("CORE");
+//        if (name.equalsIgnoreCase("PLACrossover"))
+//            return new PLACrossover2(parameters);
+        System.out.println("------------------> CORE  " + name);
+        if (name != null && !name.equals("")) {
+            System.out.println("é aqui");
             return new PLAComplementaryCrossover(parameters);
-        else {
+        } else {
             Configuration.logger_.severe("CrossoverFactory.getCrossoverOperator. " +
                     "Operator '" + name + "' not found ");
             throw new JMException("Exception in " + name + ".getCrossoverOperator()");

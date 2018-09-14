@@ -58,7 +58,7 @@ public class PLAComplementaryCrossover extends Crossover {
         System.out.println("DOCROSSOVER---->");
         System.out.println(crossoverProbability + father.toString() + mother.toString());
         int n = father.numberOfObjectives();
-        Solution offspring = new Solution(father);
+        Solution offspring = new Solution();
 
         if (father.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
             if (PseudoRandom.randDouble() < crossoverProbability) {
@@ -77,42 +77,36 @@ public class PLAComplementaryCrossover extends Crossover {
     }
 
     /**
-     * Altera solução utilizada no método doCrossver, 2 4 3
+     * Altera solução utilizada no método doCrossver
      * @param father Pai
      * @param mother Mãe
      * @param offspring Solução descendente
      */
     private void applyComplementaryCrossover(Solution father, Solution mother, Solution offspring) {
         System.out.println("applyComplementaryCrossover" + father + mother + offspring);
-        Variable[] fatherDecisionVariables = father.getDecisionVariables();
-        List<Variable> fatherElements = Arrays.asList(fatherDecisionVariables);
+        Architecture[] fatherDecisionVariables = (Architecture[]) father.getDecisionVariables();
+        List<Architecture> fatherElements = Arrays.asList(fatherDecisionVariables);
 
-        Variable[] motherDecisionVariables = (Variable[]) mother.getDecisionVariables();
-        List<Variable> motherElements = Arrays.asList(motherDecisionVariables);
+        Architecture[] motherDecisionVariables = (Architecture[]) mother.getDecisionVariables();
+        List<Architecture> motherElements = Arrays.asList(motherDecisionVariables);
 
-        System.out.println(fatherElements.size());
+        int cp = PseudoRandom.randInt(0, fatherElements.size() - 1);
 
         List<Class> diffClasses = new ArrayList<>();
-        for (Variable fatherElement : fatherElements) {
-            diffClasses.addAll(((Architecture) fatherElement).getAllClasses());
+        for (Architecture fatherElement : fatherElements) {
+            diffClasses.addAll(fatherElement.getAllClasses());
         }
 
         List<Interface> diffInterfaces = new ArrayList<>();
-        for (Variable f : fatherElements) {
-            diffInterfaces.addAll(((Architecture) f).getAllInterfaces());
+        for (Architecture f : fatherElements) {
+            diffInterfaces.addAll(f.getAllInterfaces());
         }
 
-        System.out.println(fatherElements);
-        System.out.println(fatherElements.size());
+        List<Architecture> architectures = fatherElements.subList(0, cp);
+        offspring.setDecisionVariables((Variable[]) architectures.toArray());
 
-        Variable[] vs = new Variable[fatherElements.size()];
-        for (int i = 0; i < fatherElements.size(); i++) {
-            vs[i] = fatherElements.get(i);
-        }
-        offspring.setDecisionVariables(vs);
-
-        List<Variable> list = new ArrayList<>();
-        for (Variable me : motherElements) {
+        List<Architecture> list = new ArrayList<>();
+        for (Architecture me : motherElements) {
             if (!((Architecture) offspring.getDecisionVariables()[0])
                     .getAllClasses().contains(me)) {
                 list.add(me);
@@ -126,13 +120,14 @@ public class PLAComplementaryCrossover extends Crossover {
         }
 
 
-        for (Variable cl : motherElements) {
-            for (Class cla : ((Architecture) cl).getAllClasses()) {
+        for (Architecture cl : motherElements) {
+            for (Class cla : cl.getAllClasses()) {
                 ((Architecture) offspring
                         .getDecisionVariables()[0]).addExternalClass(cla);
             }
         }
     }
+
 
     private void logSevere(String s) {
         Configuration.logger_.severe(this.getClass().getCanonicalName() + s);

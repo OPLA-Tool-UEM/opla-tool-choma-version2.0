@@ -2635,6 +2635,8 @@ public class main extends javax.swing.JFrame {
 							Logger.getLogger()
 									.putLog(String.format("Done NSGAII Execution at: %s", Time.timeNow().toString()));
 							db.Database.reloadContent();
+							unlockUITabs();
+							btnRun.setEnabled(true);
 						}
 					};
 
@@ -3773,6 +3775,14 @@ public class main extends javax.swing.JFrame {
 		jTabbedPane1.setEnabledAt(2, false);
 		jTabbedPane1.setEnabledAt(3, false);
 		jTabbedPane1.setEnabledAt(4, false);
+	}
+
+	private void unlockUITabs() {
+		jTabbedPane1.setEnabledAt(0, true);
+		jTabbedPane1.setEnabledAt(1, true);
+		jTabbedPane1.setEnabledAt(2, true);
+		jTabbedPane1.setEnabledAt(3, true);
+		jTabbedPane1.setEnabledAt(4, true);
 	}
 
 	private void populateTables() {

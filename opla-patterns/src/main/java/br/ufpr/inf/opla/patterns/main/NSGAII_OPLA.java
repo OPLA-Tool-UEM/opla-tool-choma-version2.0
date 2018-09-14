@@ -147,7 +147,7 @@ public class NSGAII_OPLA {
         parameters.put("probability", crossoverProbability_);
         crossover = CrossoverFactory.getCrossoverOperator("PLACrossover", parameters);
 
-        // Selection Operator 
+        // Selection Operator
         parameters = null;
         selection = SelectionFactory.getSelectionOperator("BinaryTournament", parameters);
 
