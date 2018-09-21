@@ -99,7 +99,7 @@ public class PLAComplementaryCrossover extends Crossover {
             diffClasses.addAll(((Architecture) fatherElement).getAllClasses());
         }
 
-        // Lista de interfaces presentes somento no pai
+        // Lista de interfaces presentes somente no pai
         List<Interface> diffInterfaces = new ArrayList<>();
         for (Variable f : fatherElements) {
             diffInterfaces.addAll(((Architecture) f).getAllInterfaces());
@@ -112,7 +112,7 @@ public class PLAComplementaryCrossover extends Crossover {
         }
         offspring.setDecisionVariables(vs);
 
-        // remove os elementos da mão que são iguais ao do filho
+        // remove os elementos da mãe que são iguais ao do filho
         List<Variable> list = new ArrayList<>();
         for (Variable me : motherElements) {
             if (!((Architecture) offspring.getDecisionVariables()[0])
