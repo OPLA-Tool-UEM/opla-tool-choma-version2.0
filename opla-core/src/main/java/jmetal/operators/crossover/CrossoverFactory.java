@@ -22,37 +22,37 @@
 package jmetal.operators.crossover;
 
 
+import java.util.HashMap;
+
 import jmetal.util.Configuration;
 import jmetal.util.JMException;
 
-import java.util.HashMap;
 
 
 /**
  * Class implementing a factory for crossover operators.
  */
 public class CrossoverFactory {
+    
+  /**
+   * Gets a crossover operator through its name.
+   * @param name Name of the operator
+   * @return The operator
+   */
+  
+	
+	public static Crossover getCrossoverOperator(String name, HashMap parameters) throws JMException {
+//      System.out.println("CORE");
+//      if (name.equalsIgnoreCase("PLACrossover"))
+//          return new PLACrossover2(parameters);
 
-    /**
-     * Gets a crossover operator through its name.
-     *
-     * @param name Name of the operator
-     * @return The operator
-     */
-
-
-    public static Crossover getCrossoverOperator(String name, HashMap parameters) throws JMException {
-//        System.out.println("CORE");
-//        if (name.equalsIgnoreCase("PLACrossover"))
-//            return new PLACrossover2(parameters);
-        System.out.println("------------------> CORE  " + name);
-        if (name != null && !name.equals("")) {
-            System.out.println("é aqui");
-            return new PLAComplementaryCrossover(parameters);
-        } else {
-            Configuration.logger_.severe("CrossoverFactory.getCrossoverOperator. " +
-                    "Operator '" + name + "' not found ");
-            throw new JMException("Exception in " + name + ".getCrossoverOperator()");
-        }
-    }
+      if (name != null && !name.equals("")) {
+          System.out.println("é aqui");
+          return new PLAModularCrossover(parameters);
+      } else {
+          Configuration.logger_.severe("CrossoverFactory.getCrossoverOperator. " +
+                  "Operator '" + name + "' not found ");
+          throw new JMException("Exception in " + name + ".getCrossoverOperator()");
+      }
 }
+	} 
